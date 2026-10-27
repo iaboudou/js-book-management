@@ -43,8 +43,10 @@
     </header>
 
     <!-- a new added div-->
-    <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 bottom-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center">
+    <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 top-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center">
       Livre ajouté avec succès !
+    </div>
+    <div class="newbookaddederror fixed left-1/2 -translate-x-1/2 top-10 bg-red-100 border hidden border-red-300 text-red-800 p-3 rounded-lg text-sm text-center">
     </div>
 
     <!-- main -->
@@ -54,35 +56,35 @@
       <section class=" p-6 rounded-lg">
         <h2 class="text-lg font-bold mb-4 border-b pb-2">Ajouter un nouveau livre</h2>
         
-        <form class="flex flex-col gap-4">
+        <form class="inputform flex flex-col gap-4">
           <!-- title -->
           <div>
             <label class="block text-xs text-gray-600 mb-1">Titre <span class="text-red-500">*</span></label>
-            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+            <input type="text" required class="title w-full p-2 border rounded text-sm focus:outline-none">
           </div>
 
           <!-- auther -->
           <div>
             <label class="block text-xs text-gray-600 mb-1">Auteur <span class="text-red-500">*</span></label>
-            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+            <input type="text" required class="author w-full p-2 border rounded text-sm focus:outline-none">
           </div>
 
           <!-- year of publication -->
           <div>
             <label class="block text-xs text-gray-600 mb-1">Année de publication <span class="text-red-500">*</span></label>
-            <input type="number" required class="w-full p-2 border rounded text-sm focus:outline-none">
+            <input type="number" required class="year w-full p-2 border rounded text-sm focus:outline-none">
           </div>
 
           <!-- book type -->
           <div>
             <label class="block text-xs text-gray-600 mb-1">Genre <span class="text-red-500">*</span></label>
-            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+            <input type="text" required class="genre w-full p-2 border rounded text-sm focus:outline-none">
           </div>
 
           <!-- select status-->
           <div>
             <label class="block text-xs text-gray-600 mb-1">Statut de lecture</label>
-            <select class="w-full p-2 border rounded text-sm  focus:outline-none">
+            <select class="status w-full p-2 border rounded text-sm  focus:outline-none">
               <option value="to-read">À lire</option>
               <option value="reading">En lecture</option>
               <option value="read">Lu</option>
@@ -91,7 +93,7 @@
 
           <div>
             <label class="block text-xs text-gray-600 mb-1">Description</label>
-            <textarea rows="3" maxlength="150" class="w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
+            <textarea rows="3" maxlength="150" class="description w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
           </div>
 
           <button type="button" class="addbook bg-emerald-600 text-white py-2 rounded text-sm mt-2">
