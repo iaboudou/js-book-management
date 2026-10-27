@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="mb-20">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- nav bar -->
+    <header class="p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+
+        <!-- title -->
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">📚</span>
+        <h1 class="text-xl font-bold">Ma Collection de Livres</h1>
+      </div>
+
+      <!-- search-->
+      <div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+        <div class="flex items-center border border-slate-300 rounded-lg px-3 py-2 w-full md:w-80">
+          <input 
+            type="text" 
+            placeholder="Rechercher par titre ou auteur..." 
+            class="text-sm w-full focus:outline-none text-slate-800 placeholder-slate-400"
+          >
+          <button type="button" class="text-slate-500 px-2">🔎</button>
+        </div>
+        
+        <!-- sort -->
+        <div class="flex items-center space-x-2">
+          <label for="sort" class="text-sm text-gray-600 whitespace-nowrap">Trier par:</label>
+          <select id="sort" class="p-2 border rounded text-sm  focus:outline-none">
+            <option value="title">Titre</option>
+            <option value="author">Auteur</option>
+            <option value="year">Année</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- a new added div-->
+    <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 bottom-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center">
+      Livre ajouté avec succès !
+    </div>
+
+    <!-- main -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!--form -->
+      <section class=" p-6 rounded-lg">
+        <h2 class="text-lg font-bold mb-4 border-b pb-2">Ajouter un nouveau livre</h2>
+        
+        <form class="flex flex-col gap-4">
+          <!-- title -->
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Titre <span class="text-red-500">*</span></label>
+            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+          </div>
+
+          <!-- auther -->
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Auteur <span class="text-red-500">*</span></label>
+            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+          </div>
+
+          <!-- year of publication -->
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Année de publication <span class="text-red-500">*</span></label>
+            <input type="number" required class="w-full p-2 border rounded text-sm focus:outline-none">
+          </div>
+
+          <!-- book type -->
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Genre <span class="text-red-500">*</span></label>
+            <input type="text" required class="w-full p-2 border rounded text-sm focus:outline-none">
+          </div>
+
+          <!-- select status-->
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Statut de lecture</label>
+            <select class="w-full p-2 border rounded text-sm  focus:outline-none">
+              <option value="to-read">À lire</option>
+              <option value="reading">En lecture</option>
+              <option value="read">Lu</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs text-gray-600 mb-1">Description</label>
+            <textarea rows="3" maxlength="150" class="w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
+          </div>
+
+          <button type="button" class="addbook bg-emerald-600 text-white py-2 rounded text-sm mt-2">
+            Ajouter le livre
+          </button>
+        </form>
+      </section>
+
+      <!-- books list -->
+      <section class="lg:col-span-2 space-y-4">
+        <h2 class="text-lg font-bold">Ma Liste</h2>
+
+        <!-- grid -> books cards -->
+        <div class="bookscard grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!--book -->
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+  <script type="module" src="/index.js"></script>
+</body>
+
+</html>
