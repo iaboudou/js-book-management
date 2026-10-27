@@ -11,110 +11,119 @@
   <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- nav bar -->
-    <header class="p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+    <header class="sticky top-0 z-5 bg-white/95 backdrop-blur-sm p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
 
-        <!-- title -->
+      <!-- title -->
       <div class="flex items-center space-x-3">
         <span class="text-2xl">📚</span>
         <h1 class="text-xl font-bold">Ma Collection de Livres</h1>
       </div>
 
-      <!-- search-->
+      <!-- search, add book & sort container -->
       <div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
-        <div class="flex items-center border border-slate-300 rounded-lg px-3 py-2 w-full md:w-80">
+        
+        <!-- search -->
+        <div class="searchBook flex items-center border border-slate-300 rounded-lg px-3 py-2 w-full md:w-72">
           <input 
             type="text" 
             placeholder="Rechercher par titre ou auteur..." 
             class="text-sm w-full focus:outline-none text-slate-800 placeholder-slate-400"
           >
-          <button type="button" class="text-slate-500 px-2">🔎</button>
+          <button type="button" class="searchBookBtn text-slate-500 px-2">🔎</button>
         </div>
+
+        <!-- add a book -->
+        <button type="button" class="addBook bg-emerald-600 text-white font-medium px-4 py-2 rounded-lg text-sm hover:bg-emerald-700 transition-colors whitespace-nowrap">
+          Ajouter un Livre
+        </button>
         
         <!-- sort -->
         <div class="flex items-center space-x-2">
           <label for="sort" class="text-sm text-gray-600 whitespace-nowrap">Trier par:</label>
-          <select id="sort" class="p-2 border rounded text-sm  focus:outline-none">
+          <select id="sort" class="p-2 border rounded text-sm bg-white focus:outline-none">
             <option value="title">Titre</option>
             <option value="author">Auteur</option>
             <option value="year">Année</option>
           </select>
         </div>
+
       </div>
     </header>
 
     <!-- a new added div-->
-    <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 top-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center">
+    <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 top-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center z-50">
       Livre ajouté avec succès !
     </div>
-    <div class="newbookaddederror fixed left-1/2 -translate-x-1/2 top-10 bg-red-100 border hidden border-red-300 text-red-800 p-3 rounded-lg text-sm text-center">
+    <div class="newbookaddederror fixed left-1/2 -translate-x-1/2 top-10 bg-red-100 border hidden border-red-300 text-red-800 p-3 rounded-lg text-sm text-center z-50">
     </div>
 
     <!-- main -->
-    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-      <!--form -->
-      <section class=" p-6 rounded-lg">
-        <h2 class="text-lg font-bold mb-4 border-b pb-2">Ajouter un nouveau livre</h2>
-        
-        <form class="inputform flex flex-col gap-4">
-          <!-- title -->
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Titre <span class="text-red-500">*</span></label>
-            <input type="text" required class="title w-full p-2 border rounded text-sm focus:outline-none">
-          </div>
-
-          <!-- auther -->
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Auteur <span class="text-red-500">*</span></label>
-            <input type="text" required class="author w-full p-2 border rounded text-sm focus:outline-none">
-          </div>
-
-          <!-- year of publication -->
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Année de publication <span class="text-red-500">*</span></label>
-            <input type="number" required class="year w-full p-2 border rounded text-sm focus:outline-none">
-          </div>
-
-          <!-- book type -->
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Genre <span class="text-red-500">*</span></label>
-            <input type="text" required class="genre w-full p-2 border rounded text-sm focus:outline-none">
-          </div>
-
-          <!-- select status-->
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Statut de lecture</label>
-            <select class="status w-full p-2 border rounded text-sm  focus:outline-none">
-              <option value="to-read">À lire</option>
-              <option value="reading">En lecture</option>
-              <option value="read">Lu</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Description</label>
-            <textarea rows="3" maxlength="150" class="description w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
-          </div>
-
-          <button type="button" class="addbook bg-emerald-600 text-white py-2 rounded text-sm mt-2">
-            Ajouter le livre
-          </button>
-        </form>
-      </section>
+    <main class="px-4">
 
       <!-- books list -->
-      <section class="lg:col-span-2 space-y-4">
+      <section class="space-y-4">
         <h2 class="text-lg font-bold">Ma Liste</h2>
 
-        <!-- grid -> books cards -->
-        <div class="bookscard grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- grid -> books cards (3 columns on large screens) -->
+        <div class="bookscard grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!--book -->
         </div>
       </section>
 
     </main>
-
+  
   </div>
+
+  <dialog id="editModal" class="fixed inset-0 m-auto p-0 rounded-lg bg-transparent w-11/12 max-w-md backdrop:bg-slate-900/60">
+    <form class="inputform bg-white p-6 rounded-lg w-full flex flex-col gap-4">
+      <h2 class="text-lg font-bold text-slate-900 border-b pb-2">
+        Modifier le livre
+      </h2>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Titre <span class="text-red-500">*</span></label>
+        <input type="text" required class="titleinput w-full p-2 border rounded text-sm focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Auteur <span class="text-red-500">*</span></label>
+        <input type="text" required class="authorinput w-full p-2 border rounded text-sm focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Année de publication <span class="text-red-500">*</span></label>
+        <input type="number" required class="yearinput w-full p-2 border rounded text-sm focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Genre <span class="text-red-500">*</span></label>
+        <input type="text" required class="genreinput w-full p-2 border rounded text-sm focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Statut de lecture <span class="text-red-500">*</span></label>
+        <select class="statusinput w-full p-2 border rounded text-sm bg-white focus:outline-none">
+          <option value="À lire">À lire</option>
+          <option value="En lecture">En lecture</option>
+          <option value="Lu">Lu</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-600 mb-1">Description <span class="text-red-500">*</span></label>
+        <textarea rows="3" maxlength="150" class="descriptioninput w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t">
+        <button type="button" class="cancelEditBtn bg-slate-200 px-4 py-2 rounded text-sm">
+          Annuler
+        </button>
+        <button type="submit" class="addbook bg-emerald-600 text-white px-4 py-2 rounded text-sm">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </dialog>
   <script type="module" src="/index.js"></script>
 </body>
 
