@@ -1,17 +1,17 @@
 export function IsvalidTitle(input) {
   return (
-    input !== "" && /^[a-zA-ZÀ-ÿ\s\-'’]+$/.test(input) && input.length < 40
+    input !== "" && /^[0-9a-zA-ZÀ-ÿ\s\-.'’]+$/.test(input) && input.length < 40
   );
 }
 export function IsvalidAuthor(input) {
   return (
-    input !== "" && /^[a-zA-ZÀ-ÿ\s\-'’]+$/.test(input) && input.length < 40
+    input !== "" && /^[0-9a-zA-ZÀ-ÿ\s\-.'’]+$/.test(input) && input.length < 40
   );
 }
 
 export function IsvalidGenre(input) {
   return (
-    input !== "" && /^[a-zA-ZÀ-ÿ\s\-'’]+$/.test(input) && input.length < 40
+    input !== "" && /^[0-9a-zA-ZÀ-ÿ\s\-.'’]+$/.test(input) && input.length < 40
   );
 }
 
@@ -22,7 +22,7 @@ export function IsvalidYear(year) {
 }
 
 export function IsvalidStatus(status) {
-  return ["to-read", "reading", "read"].includes(status);
+  return ["À lire", "En lecture", "Lu"].includes(status);
 }
 
 export function IsValidDescription(input) {
@@ -31,6 +31,10 @@ export function IsValidDescription(input) {
 
 // check if the input tap by the user is correct and show an error message in case of invalide input
 export function isInputsValid({ title = "", author = "", year = "", genre = "", description = "", status = ""} = {}, errorMessageFn) {
+  if (title == "" || author == "" || year == "" || genre == "" || description == "" || status == "") {
+    errorMessageFn("tous les champs sont obligatoire");
+    return false
+  }
   if (!IsvalidTitle(title)) {
     errorMessageFn("le titre n'est pas valide");
     return false;

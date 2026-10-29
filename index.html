@@ -16,7 +16,7 @@
       <!-- title -->
       <div class="flex items-center space-x-3">
         <span class="text-2xl">📚</span>
-        <h1 class="text-xl font-bold">Ma Collection de Livres</h1>
+        <h1 class="text-xl font-bold">Mes  Livres</h1>
       </div>
 
       <!-- search, add book & sort container -->
@@ -39,7 +39,7 @@
         
         <!-- sort -->
         <div class="flex items-center space-x-2">
-          <label for="sort" class="text-sm text-gray-600 whitespace-nowrap">Trier par:</label>
+          <label for="sort" class="text-sm text-gray-600 whitespace-nowrap">Trier par</label>
           <select id="sort" class="p-2 border rounded text-sm bg-white focus:outline-none">
             <option value="title">Titre</option>
             <option value="author">Auteur</option>
@@ -54,7 +54,7 @@
     <div class="newbookaddedmsg fixed left-1/2 -translate-x-1/2 top-10 bg-green-100 border hidden border-green-300 text-green-800 p-3 rounded-lg text-sm text-center z-50">
       Livre ajouté avec succès !
     </div>
-    <div class="newbookaddederror fixed left-1/2 -translate-x-1/2 top-10 bg-red-100 border hidden border-red-300 text-red-800 p-3 rounded-lg text-sm text-center z-50">
+    <div class=" fixed left-1/2 -translate-x-1/2 top-10 bg-red-100 border hidden border-red-300 text-red-800 p-3 rounded-lg text-sm text-center z-50">
     </div>
 
     <!-- main -->
@@ -74,7 +74,7 @@
   
   </div>
 
-  <dialog id="editModal" class="fixed inset-0 m-auto p-0 rounded-lg bg-transparent w-11/12 max-w-md backdrop:bg-slate-900/60">
+  <dialog id="editModal" class="fixed inset-0 m-auto p-0 rounded-lg bg-transparent w-11/12 max-w-md backdrop:bg-slate-900/60 relative">
     <form class="inputform bg-white p-6 rounded-lg w-full flex flex-col gap-4">
       <h2 class="text-lg font-bold text-slate-900 border-b pb-2">
         Modifier le livre
@@ -113,8 +113,9 @@
         <label class="block text-xs text-gray-600 mb-1">Description <span class="text-red-500">*</span></label>
         <textarea rows="3" maxlength="150" class="descriptioninput w-full p-2 border rounded text-sm resize-none focus:outline-none"></textarea>
       </div>
+      <div class="newbookaddederror hidden absolute lg:bottom-9 bottom-[65px] font-bold text-red-800 text-sm flex items-start justify-start"></div>
 
-      <div class="flex justify-end gap-2 pt-2 border-t">
+      <div class="flex justify-end gap-2 pt-2 ">
         <button type="button" class="cancelEditBtn bg-slate-200 px-4 py-2 rounded text-sm">
           Annuler
         </button>
@@ -123,6 +124,7 @@
         </button>
       </div>
     </form>
+
   </dialog>
   <script type="module" src="/index.js"></script>
 </body>

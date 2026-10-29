@@ -1,9 +1,12 @@
 import { bookCard, newBookAddedMessage, inputerrorMessage } from "./help/sections.js";
 import { userInputs, saveBookInLocalStorage, displayBookCard, displayBooksFromLocalStorage, removBookFromDOM, removeBookFromLocalStorage, showPopUpToUpdateBook, showPopUpToAddBook, deleteCardIfIncludeID, filterDOMcards, sortBy } from "./help/functions.js";
 import { isInputsValid } from "./help/validate.js";
-import { resetInput } from "./help/reset.js";
+import { resetInput, resetMsgs } from "./help/reset.js";
+import { setSeeds } from "./help/seeds.js";
+import { timer } from "./help/config.js";
 
-// immediatly display the books object exists on the localstorage ------
+// immediatly add some seeds to the localstorage and display it  ------
+setSeeds()
 displayBooksFromLocalStorage(bookCard);
 
 // in case of clicking .addBook should display the popUp ---------------
@@ -18,19 +21,20 @@ let addBookBtn = document.querySelector(".addbook");
 
 addBookBtn?.addEventListener("click", (e) => {
   e.preventDefault();
+  resetMsgs()
 
   if (addBookBtn.disabled) return;
   
   try {
     addBookBtn.disabled = true;
     
-    let inputs = userInputs(Math.random() + "");
-    if (isInputsValid(inputs, inputerrorMessage)) {
+    let inputs = userInputs(Math.random() + "" + Date.now());
+    if (isInputsValid(inputs, (err) => inputerrorMessage(err, timer))) {
       deleteCardIfIncludeID(addBookBtn);
       resetInput();
       saveBookInLocalStorage(inputs);
       displayBookCard(inputs, bookCard);
-      newBookAddedMessage();
+      newBookAddedMessage(timer);
       document.getElementById("editModal")?.close();
     }
   } finally {
@@ -42,6 +46,7 @@ addBookBtn?.addEventListener("click", (e) => {
 let cards = document.querySelector(".bookscard");
 cards.addEventListener("click", (e) => {
   e.preventDefault();
+  resetMsgs()
   let removeBtn = e.target.closest(".bookdelete");
   let modifybtn = e.target.closest(".bookmodify");
 
@@ -68,11 +73,11 @@ cards.addEventListener("click", (e) => {
 // in case of search try to filter the data from the localstorage object -----
 // applying debounce to avois spamming
 let search = document.querySelector(".searchBook")
-let timer
+let t1
 search.addEventListener("input", (e)=> {
-  clearTimeout(timer)
+  clearTimeout(t1)
   let value = e.target.value
-  timer = setTimeout(()=> {
+  t1 = setTimeout(()=> {
     filterDOMcards(value)
   }, 300)
 })

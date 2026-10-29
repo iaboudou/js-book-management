@@ -1,9 +1,8 @@
-
 // this is responsable for rendring a new book card to the DOM
 export function bookCard({ id, title = "", author = "", year = "", genre = "", description = "", status = "" } = {}) {
 
     let book = document.createElement("div")
-    book.className = "p-4 rounded-lg shadow-sm border flex flex-col justify-between space-y-3"
+    book.className = "bookcard p-4 rounded-lg shadow-sm border flex flex-col justify-between space-y-3"
     book.dataset.id = id
 
     let c = document.createElement("div")
@@ -19,7 +18,7 @@ export function bookCard({ id, title = "", author = "", year = "", genre = "", d
 
     // status
     let s = document.createElement("span")
-    s.className = "readstatus bg-yellow-100 text-blue-800 text-xs px-2 py-0.5 rounded"
+    s.className = `readstatus ${status == "À lire" ? "bg-yellow-100" : status == "En lecture" ? "bg-green-200" : "bg-red-200"} text-blue-800 text-xs px-2 py-0.5 rounded`
     s.textContent = status
 
     header.append(t, s)
@@ -36,7 +35,7 @@ export function bookCard({ id, title = "", author = "", year = "", genre = "", d
 
     //description
     let desc = document.createElement("p")
-    desc.className = "bookdesc text-xs text-gray-600 mt-2"
+    desc.className = "bookdesc text-xs text-gray-600 mt-2 break-words"
     desc.textContent = description
 
     c.append(header, a, typee, desc)
@@ -63,20 +62,20 @@ export function bookCard({ id, title = "", author = "", year = "", genre = "", d
 }
 
 // when a new book added disply a notification message
-export function newBookAddedMessage() {
+export function newBookAddedMessage(timer) {
     document.querySelector(".newbookaddedmsg").classList.remove("hidden")
-    setTimeout(() => {
+    timer = setTimeout(() => {
         document.querySelector(".newbookaddedmsg").classList.add("hidden")
     }, 2500)
 }
 
-export function inputerrorMessage(errortype) {
+export function inputerrorMessage(errortype, timer) {
     let e = document.querySelector(".newbookaddederror")
     e.textContent = errortype
     e.classList.remove("hidden")
 
-    setTimeout(() => {
+    timer = setTimeout(() => {
         document.querySelector(".newbookaddederror").classList.add("hidden")
         e.textContent = ""
-    }, 2500)
+    }, 10000)
 }
