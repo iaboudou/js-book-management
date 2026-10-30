@@ -1,6 +1,6 @@
 import { bookCard, newBookAddedMessage, inputerrorMessage } from "./help/sections.js";
 import { userInputs, saveBookInLocalStorage, displayBookCard, displayBooksFromLocalStorage, removBookFromDOM, removeBookFromLocalStorage, showPopUpToUpdateBook, 
-  showPopUpToAddBook, deleteCardIfIncludeID, filterDOMcards, sortBy } from "./help/functions.js";
+  showPopUpToAddBook, deleteCardIfIncludeID, filterDOMcards, sortBy, showNoBookExists } from "./help/functions.js";
 import { isInputsValid } from "./help/validate.js";
 import { resetInput, resetMsgs } from "./help/reset.js";
 import { setSeeds } from "./help/seeds.js";
@@ -34,6 +34,7 @@ addBookBtn?.addEventListener("click", (e) => {
       resetInput();
       saveBookInLocalStorage(inputs);
       displayBookCard(inputs, bookCard);
+      showNoBookExists();
       newBookAddedMessage(timer);
       document.getElementById("editModal")?.close();
     }
@@ -56,6 +57,7 @@ cards.addEventListener("click", (e) => {
       removeBtn.disabled = true;
       removBookFromDOM(removeBtn.dataset.id);
       removeBookFromLocalStorage(removeBtn.dataset.id);
+      showNoBookExists();
     } finally {
       removeBtn.disabled = false;
     }

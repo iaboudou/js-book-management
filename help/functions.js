@@ -86,14 +86,18 @@ export function displayBookCard( { id, title, author, year, genre, description, 
   bookcards?.append(card);
 }
 
+// show no book exist in case of empty 
+export function showNoBookExists() {
+  if (JSON.parse(localStorage.getItem("books") ?? "[]").length === 0) {
+    document.querySelector(".nobookexists")?.classList.remove("hidden")
+  }
+}
+
 // parse just the object from localstorage
 export function displayBooksFromLocalStorage(bookCard) {
   let books = JSON.parse(localStorage.getItem("books") || "[]");
-  if (books.length == 0) {
-    document.querySelector(".nobookexists").classList.remove("hidden")
-    return
-  }
   books.forEach((book) => displayBookCard(book, bookCard));
+  showNoBookExists();
 }
 
 // extract the htmlcollection, if the element's id found then remove it
@@ -147,6 +151,7 @@ export function filterDOMcards(str) {
   booksArray.filter(e => 
     e.title.toString().toLowerCase().includes(str.toLowerCase()) || 
     e.author.toString().toLowerCase().includes(str.toLowerCase())).forEach(obj => displayBookCard(obj, bookCard))
+    showNoBookExists();
 }
 
 // sort based on the type selected by the user

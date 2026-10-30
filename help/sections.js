@@ -63,6 +63,7 @@ export function bookCard({ id, title = "", author = "", year = "", genre = "", d
 
 // when a new book added disply a notification message
 export function newBookAddedMessage(timer) {
+    clearTimeout(timer)
     document.querySelector(".newbookaddedmsg").classList.remove("hidden")
     timer = setTimeout(() => {
         document.querySelector(".newbookaddedmsg").classList.add("hidden")

@@ -1,5 +1,7 @@
 
 export function setSeeds() {
+    if (JSON.parse(localStorage.getItem("books") ?? "[]").length != 0) return;
+
     const books = [
       { id: Math.random() + "" + Date.now(), title: "1984", author: "George Orwell", year: 1949, genre: "Dystopian", description: "A society under surveillance.", status: "En lecture" },
       { id: Math.random() + "" + Date.now(), title: "Clean Code", author: "Robert C. Martin", year: 2008, genre: "Programming", description: "Writing maintainable code.", status: "Lu" },
