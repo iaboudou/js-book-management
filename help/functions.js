@@ -89,6 +89,10 @@ export function displayBookCard( { id, title, author, year, genre, description, 
 // parse just the object from localstorage
 export function displayBooksFromLocalStorage(bookCard) {
   let books = JSON.parse(localStorage.getItem("books") || "[]");
+  if (books.length == 0) {
+    document.querySelector(".nobookexists").classList.remove("hidden")
+    return
+  }
   books.forEach((book) => displayBookCard(book, bookCard));
 }
 

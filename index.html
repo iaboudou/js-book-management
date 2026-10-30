@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MCL</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
 </head>
 <body class="mb-20">
 
@@ -15,8 +16,9 @@
 
       <!-- title -->
       <div class="flex items-center space-x-3">
-        <span class="text-2xl">📚</span>
-        <h1 class="text-xl font-bold">Mes  Livres</h1>
+        <h1 class="font-serif text-3xl text-gray-900 first-letter:text-5xl first-letter:font-bold">
+          Mes Livres
+        </h1>
       </div>
 
       <!-- search, add book & sort container -->
@@ -62,8 +64,6 @@
 
       <!-- books list -->
       <section class="space-y-4">
-        <h2 class="text-lg font-bold">Ma Liste</h2>
-
         <!-- grid -> books cards (3 columns on large screens) -->
         <div class="bookscard grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!--book -->
@@ -71,10 +71,12 @@
       </section>
 
     </main>
+
+    <div class="nobookexists flex justify-center hidden"> Aucune Livre dans La Liste</div>
   
   </div>
 
-  <dialog id="editModal" class="fixed inset-0 m-auto p-0 rounded-lg bg-transparent w-11/12 max-w-md backdrop:bg-slate-900/60 relative">
+  <dialog id="editModal" class="fixed p-0 rounded-lg w-[90%] max-w-md backdrop:bg-slate-900/80 relative">
     <form class="inputform bg-white p-6 rounded-lg w-full flex flex-col gap-4">
       <h2 class="text-lg font-bold text-slate-900 border-b pb-2">
         Modifier le livre

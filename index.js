@@ -4,7 +4,7 @@ import { userInputs, saveBookInLocalStorage, displayBookCard, displayBooksFromLo
 import { isInputsValid } from "./help/validate.js";
 import { resetInput, resetMsgs } from "./help/reset.js";
 import { setSeeds } from "./help/seeds.js";
-import { timer } from "./help/config.js";
+import { DEBOUNCE_DELAY, timer } from "./help/config.js";
 
 // immediatly add some seeds to the localstorage and display it  ------
 setSeeds();
@@ -29,7 +29,7 @@ addBookBtn?.addEventListener("click", (e) => {
     addBookBtn.disabled = true;
 
     let inputs = userInputs(Math.random() + "" + Date.now());
-    if (isInputsValid(inputs, (err) => inputerrorMessage(err, timer))) {
+    if (isInputsValid(inputs, (err) => inputerrorMessage(err))) {
       deleteCardIfIncludeID(addBookBtn);
       resetInput();
       saveBookInLocalStorage(inputs);
@@ -50,6 +50,7 @@ cards.addEventListener("click", (e) => {
   let removeBtn = e.target.closest(".bookdelete");
   let modifybtn = e.target.closest(".bookmodify");
 
+  // remove 
   if (removeBtn && !removeBtn.disabled) {
     try {
       removeBtn.disabled = true;
@@ -58,6 +59,7 @@ cards.addEventListener("click", (e) => {
     } finally {
       removeBtn.disabled = false;
     }
+    // update
   } else if (modifybtn && !modifybtn.disabled) {
     try {
       modifybtn.disabled = true;
@@ -77,7 +79,7 @@ search.addEventListener("input", (e) => {
   let value = e.target.value.trim();
   t1 = setTimeout(() => {
     filterDOMcards(value);
-  }, 300);
+  }, DEBOUNCE_DELAY);
 });
 
 // on change will be sort the books objects based on the type
@@ -88,5 +90,5 @@ sort.addEventListener("change", (e) => {
   let value = e.target.value;
   t = setTimeout(() => {
     sortBy(value);
-  }, 300);
+  }, DEBOUNCE_DELAY);
 });

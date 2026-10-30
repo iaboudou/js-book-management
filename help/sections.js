@@ -69,13 +69,8 @@ export function newBookAddedMessage(timer) {
     }, 2500)
 }
 
-export function inputerrorMessage(errortype, timer) {
+export function inputerrorMessage(errortype) {
     let e = document.querySelector(".newbookaddederror")
     e.textContent = errortype
     e.classList.remove("hidden")
-
-    timer = setTimeout(() => {
-        document.querySelector(".newbookaddederror").classList.add("hidden")
-        e.textContent = ""
-    }, 10000)
 }
