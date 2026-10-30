@@ -16,8 +16,8 @@ export function userInputs(id) {
 
 // this function help to show Modal for entring a new book
 // the id's will be reset to avoid having a not valid id, because the modal ".editModal" will be used to add and to update new book at the same time
-// an event will be added to close the Modal in case of no update
-export function showPopUpToAddBook() {
+// an event will be added to close the Modal in case of cancel
+export function showPopUpToAddBook(resetInput) {
   let modal = document.getElementById("editModal");
   if (!modal) return;
   delete modal.dataset.id;
@@ -31,7 +31,7 @@ export function showPopUpToAddBook() {
     delete submitBtn.dataset.id;
   }
 
-  document.querySelector(".inputform")?.reset();
+  resetInput()
   modal.showModal();
 
   document.querySelector(".cancelEditBtn")?.addEventListener("click", (e) => {
@@ -71,7 +71,14 @@ export function saveBookInLocalStorage({ id, title, author, year, genre, descrip
   localStorage.setItem("books", JSON.stringify(books));
 }
 
-// pass the values via bookCard() to add them to the DOM
+// remove an object from the localstorage
+export function removeBookFromLocalStorage(id) {
+  let books = JSON.parse(localStorage.getItem("books") || "[]");
+  books = books.filter((book) => book.id !== id);
+  localStorage.setItem("books", JSON.stringify(books));
+}
+
+// pass the values via bookCard() to build the card and add it to to the DOM
 export function displayBookCard( { id, title, author, year, genre, description, status } = {}, bookCard ) {
   let card = bookCard({ id, title, author, year, genre, description, status });
 
@@ -80,25 +87,16 @@ export function displayBookCard( { id, title, author, year, genre, description, 
 }
 
 // parse just the object from localstorage
-export function displayBooksFromLocalStorage(bookCard, id) {
+export function displayBooksFromLocalStorage(bookCard) {
   let books = JSON.parse(localStorage.getItem("books") || "[]");
   books.forEach((book) => displayBookCard(book, bookCard));
 }
 
-// extract the htmlcollection, if the element found then remove it
+// extract the htmlcollection, if the element's id found then remove it
 export function removBookFromDOM(id) {
   const container = document.querySelector(".bookscard");
-  const book = Array.from(container?.children ?? []).find(
-    (el) => el.dataset.id === id,
-  );
+  const book = Array.from(container?.children ?? []).find( (el) => el.dataset.id === id );
   book?.remove();
-}
-
-// remove an object from the localstorage
-export function removeBookFromLocalStorage(id) {
-  let books = JSON.parse(localStorage.getItem("books") || "[]");
-  books = books.filter((book) => book.id !== id);
-  localStorage.setItem("books", JSON.stringify(books));
 }
 
 // this function help to add the content of a specific book in the localstorage based on the id to the modal
@@ -118,3 +116,20 @@ export function putTheCardContentToPopUp(modal, modifyBtn) {
     }
   });
 }
+
+
+// this function just help to remove an element from the localstorage and from the DOM
+// it reset the modal's dataset.id as well so it can be used in the next time
+export function deleteCardIfIncludeID(btn) {
+  let modal = document.getElementById("editModal");
+  let id = btn.dataset.id;
+  
+  if (!id) return;
+  
+  removeBookFromLocalStorage(id);
+  removBookFromDOM(id);
+
+  delete modal.dataset.id;
+  delete btn.dataset.id;
+}
+
