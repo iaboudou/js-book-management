@@ -133,3 +133,35 @@ export function deleteCardIfIncludeID(btn) {
   delete btn.dataset.id;
 }
 
+
+import { bookCard } from "./sections.js";
+export function filterDOMcards(str) {
+  let cardsCollection = document.querySelector(".bookscard")
+  let booksArray = JSON.parse(localStorage.getItem("books"))
+  cardsCollection.innerHTML = ""
+  
+  booksArray.filter(e => 
+    e.title.toString().toLowerCase().includes(str.toLowerCase()) || 
+    e.author.toString().toLowerCase().includes(str.toLowerCase())).forEach(obj => displayBookCard(obj, bookCard))
+}
+
+// sort based on the type selected by the user
+// rerender the page based
+export function sortBy(type) {
+  const cardsCollection = document.querySelector(".bookscard");
+  const booksArray = JSON.parse(localStorage.getItem("books") || "[]");
+
+  booksArray.sort((a, b) => {
+    if (type === "title") {
+      return a.title.localeCompare(b.title);
+    } else if (type === "author") {
+      return a.author.localeCompare(b.author);
+    } else if (type === "year") {
+      return Number(a.year) - Number(b.year);
+    }
+    return 0;
+  });
+
+  cardsCollection.innerHTML = "";
+  booksArray.forEach(obj => displayBookCard(obj, bookCard));
+}

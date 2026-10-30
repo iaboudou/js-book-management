@@ -1,33 +1,33 @@
 import { bookCard, newBookAddedMessage, inputerrorMessage } from "./help/sections.js";
-import { userInputs, saveBookInLocalStorage, displayBookCard, displayBooksFromLocalStorage, removBookFromDOM, removeBookFromLocalStorage, showPopUpToUpdateBook, showPopUpToAddBook, deleteCardIfIncludeID, filterDOMcards, sortBy } from "./help/functions.js";
+import { userInputs, saveBookInLocalStorage, displayBookCard, displayBooksFromLocalStorage, removBookFromDOM, removeBookFromLocalStorage, showPopUpToUpdateBook, 
+  showPopUpToAddBook, deleteCardIfIncludeID, filterDOMcards, sortBy } from "./help/functions.js";
 import { isInputsValid } from "./help/validate.js";
 import { resetInput, resetMsgs } from "./help/reset.js";
 import { setSeeds } from "./help/seeds.js";
 import { timer } from "./help/config.js";
 
 // immediatly add some seeds to the localstorage and display it  ------
-setSeeds()
+setSeeds();
 displayBooksFromLocalStorage(bookCard);
 
 // in case of clicking .addBook should display the popUp ---------------
 document.querySelector(".addBook")?.addEventListener("click", (e) => {
   e.preventDefault();
-  showPopUpToAddBook();
+  showPopUpToAddBook(resetInput);
 });
-
 
 // in case of clicking to add new book ---------------------------------
 let addBookBtn = document.querySelector(".addbook");
 
 addBookBtn?.addEventListener("click", (e) => {
   e.preventDefault();
-  resetMsgs()
+  resetMsgs();
 
   if (addBookBtn.disabled) return;
-  
+
   try {
     addBookBtn.disabled = true;
-    
+
     let inputs = userInputs(Math.random() + "" + Date.now());
     if (isInputsValid(inputs, (err) => inputerrorMessage(err, timer))) {
       deleteCardIfIncludeID(addBookBtn);
@@ -46,7 +46,7 @@ addBookBtn?.addEventListener("click", (e) => {
 let cards = document.querySelector(".bookscard");
 cards.addEventListener("click", (e) => {
   e.preventDefault();
-  resetMsgs()
+  resetMsgs();
   let removeBtn = e.target.closest(".bookdelete");
   let modifybtn = e.target.closest(".bookmodify");
 
@@ -58,38 +58,35 @@ cards.addEventListener("click", (e) => {
     } finally {
       removeBtn.disabled = false;
     }
-  }
-  else if (modifybtn && !modifybtn.disabled) {
+  } else if (modifybtn && !modifybtn.disabled) {
     try {
-      modifybtn.disabled = true
-      showPopUpToUpdateBook(modifybtn)
-    }finally {
-      modifybtn.disabled = false
+      modifybtn.disabled = true;
+      showPopUpToUpdateBook(modifybtn);
+    } finally {
+      modifybtn.disabled = false;
     }
-  }  
+  }
 });
-
 
 // in case of search try to filter the data from the localstorage object -----
 // applying debounce to avois spamming
-let search = document.querySelector(".searchBook")
-let t1
-search.addEventListener("input", (e)=> {
-  clearTimeout(t1)
-  let value = e.target.value
-  t1 = setTimeout(()=> {
-    filterDOMcards(value)
-  }, 300)
-})
-
+let search = document.querySelector(".searchBook");
+let t1;
+search.addEventListener("input", (e) => {
+  clearTimeout(t1);
+  let value = e.target.value.trim();
+  t1 = setTimeout(() => {
+    filterDOMcards(value);
+  }, 300);
+});
 
 // on change will be sort the books objects based on the type
-let sort = document.getElementById("sort")
-let t
-sort.addEventListener("change", (e)=> {
-  clearTimeout(t)
-  let value = e.target.value
-  t = setTimeout(()=> {
-    sortBy(value)
-  }, 300)
-})
+let sort = document.getElementById("sort");
+let t;
+sort.addEventListener("change", (e) => {
+  clearTimeout(t);
+  let value = e.target.value;
+  t = setTimeout(() => {
+    sortBy(value);
+  }, 300);
+});
